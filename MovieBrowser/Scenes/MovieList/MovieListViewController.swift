@@ -9,9 +9,11 @@ import UIKit
 
 class MovieListViewController: UIViewController {
 
+    var configurator = AppMovieListConfigurator()
+    var presenter: MovieListPresenter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
 }
-

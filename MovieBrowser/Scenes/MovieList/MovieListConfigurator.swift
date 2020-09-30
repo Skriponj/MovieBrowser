@@ -7,10 +7,13 @@
 
 import Foundation
 
-protocol MovieListConfiguratorInterface {
-    
+protocol MovieListConfigurator {
+    func configure(movieListViewController: MovieListViewController)
 }
 
-class MovieListConfigurator: MovieListConfiguratorInterface {
+class AppMovieListConfigurator: MovieListConfigurator {
     
+    func configure(movieListViewController: MovieListViewController) {
+        
+    }
 }

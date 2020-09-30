@@ -7,10 +7,10 @@
 
 import Foundation
 
-protocol MovieListPresenterInterface {
+protocol MovieListPresenter {
     
 }
 
-class MovieListPresenter: MovieListPresenterInterface {
+class AppMovieListPresenter: MovieListPresenter {
     
 }

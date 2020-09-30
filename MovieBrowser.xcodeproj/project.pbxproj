@@ -21,6 +21,16 @@
 		BC34A6622523742F0032B60E /* Scene+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A6612523742F0032B60E /* Scene+ViewController.swift */; };
 		BC34A669252376790032B60E /* MovieListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A668252376790032B60E /* MovieListConfigurator.swift */; };
 		BC34A66C252376850032B60E /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A66B252376850032B60E /* MovieListPresenter.swift */; };
+		BC34A67225237A270032B60E /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A67125237A270032B60E /* ApiClient.swift */; };
+		BC34A71625237E730032B60E /* MovieApiGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A71525237E730032B60E /* MovieApiGateway.swift */; };
+		BC34A71A2523821F0032B60E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A7192523821F0032B60E /* Movie.swift */; };
+		BC34A71E25238A660032B60E /* NetworkEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A71D25238A660032B60E /* NetworkEnvironment.swift */; };
+		BC34A722252455D50032B60E /* GetMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A721252455D50032B60E /* GetMovieList.swift */; };
+		BC34A72A252458090032B60E /* AnyApiGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A729252458090032B60E /* AnyApiGateway.swift */; };
+		BC34A7C5252460BB0032B60E /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A7C4252460BB0032B60E /* ApiError.swift */; };
+		BC34A7C925246C410032B60E /* GetMovieListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A7C825246C410032B60E /* GetMovieListRequest.swift */; };
+		BC34A7D025247A0F0032B60E /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A7CF25247A0F0032B60E /* MoviesResponse.swift */; };
+		BC34A7D325247B810032B60E /* MovieGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A7D225247B810032B60E /* MovieGenre.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +51,16 @@
 		BC34A6612523742F0032B60E /* Scene+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scene+ViewController.swift"; sourceTree = "<group>"; };
 		BC34A668252376790032B60E /* MovieListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListConfigurator.swift; sourceTree = "<group>"; };
 		BC34A66B252376850032B60E /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
+		BC34A67125237A270032B60E /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		BC34A71525237E730032B60E /* MovieApiGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApiGateway.swift; sourceTree = "<group>"; };
+		BC34A7192523821F0032B60E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		BC34A71D25238A660032B60E /* NetworkEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEnvironment.swift; sourceTree = "<group>"; };
+		BC34A721252455D50032B60E /* GetMovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieList.swift; sourceTree = "<group>"; };
+		BC34A729252458090032B60E /* AnyApiGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyApiGateway.swift; sourceTree = "<group>"; };
+		BC34A7C4252460BB0032B60E /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		BC34A7C825246C410032B60E /* GetMovieListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieListRequest.swift; sourceTree = "<group>"; };
+		BC34A7CF25247A0F0032B60E /* MoviesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesResponse.swift; sourceTree = "<group>"; };
+		BC34A7D225247B810032B60E /* MovieGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieGenre.swift; sourceTree = "<group>"; };
 		CC0BC406D591C7BE6B989D1A /* Pods-MovieBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieBrowser.release.xcconfig"; path = "Target Support Files/Pods-MovieBrowser/Pods-MovieBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +106,9 @@
 		BC34A62825233AB20032B60E /* MovieBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				BC34A720252455B70032B60E /* UseCases */,
+				BC34A718252382150032B60E /* Models */,
+				BC34A67025237A170032B60E /* Networking */,
 				BC34A665252375220032B60E /* Storyboards */,
 				BC34A664252374A50032B60E /* Scenes */,
 				BC34A65325236FC30032B60E /* Navigation */,
@@ -134,6 +157,61 @@
 				BC34A66B252376850032B60E /* MovieListPresenter.swift */,
 			);
 			path = MovieList;
+			sourceTree = "<group>";
+		};
+		BC34A66E25237A060032B60E /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A66F25237A0D0032B60E /* ApiGateway */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		BC34A66F25237A0D0032B60E /* ApiGateway */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A71525237E730032B60E /* MovieApiGateway.swift */,
+				BC34A729252458090032B60E /* AnyApiGateway.swift */,
+			);
+			path = ApiGateway;
+			sourceTree = "<group>";
+		};
+		BC34A67025237A170032B60E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A7C725246C2E0032B60E /* Requests */,
+				BC34A66E25237A060032B60E /* Gateways */,
+				BC34A67125237A270032B60E /* ApiClient.swift */,
+				BC34A71D25238A660032B60E /* NetworkEnvironment.swift */,
+				BC34A7C4252460BB0032B60E /* ApiError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		BC34A718252382150032B60E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A7192523821F0032B60E /* Movie.swift */,
+				BC34A7CF25247A0F0032B60E /* MoviesResponse.swift */,
+				BC34A7D225247B810032B60E /* MovieGenre.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BC34A720252455B70032B60E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A721252455D50032B60E /* GetMovieList.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		BC34A7C725246C2E0032B60E /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				BC34A7C825246C410032B60E /* GetMovieListRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		C57F48204C989C43E87A3406 /* Frameworks */ = {
@@ -258,13 +336,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC34A67225237A270032B60E /* ApiClient.swift in Sources */,
+				BC34A7C5252460BB0032B60E /* ApiError.swift in Sources */,
 				BC34A655252373350032B60E /* Scene.swift in Sources */,
+				BC34A72A252458090032B60E /* AnyApiGateway.swift in Sources */,
 				BC34A62E25233AB20032B60E /* MovieListViewController.swift in Sources */,
 				BC34A63425233AB20032B60E /* MovieBrowser.xcdatamodeld in Sources */,
+				BC34A71625237E730032B60E /* MovieApiGateway.swift in Sources */,
 				BC34A659252373410032B60E /* SceneTransitionType.swift in Sources */,
 				BC34A62A25233AB20032B60E /* AppDelegate.swift in Sources */,
 				BC34A6622523742F0032B60E /* Scene+ViewController.swift in Sources */,
+				BC34A7D025247A0F0032B60E /* MoviesResponse.swift in Sources */,
+				BC34A722252455D50032B60E /* GetMovieList.swift in Sources */,
+				BC34A7D325247B810032B60E /* MovieGenre.swift in Sources */,
+				BC34A71A2523821F0032B60E /* Movie.swift in Sources */,
 				BC34A65F252373B90032B60E /* SceneCoordinator.swift in Sources */,
+				BC34A7C925246C410032B60E /* GetMovieListRequest.swift in Sources */,
+				BC34A71E25238A660032B60E /* NetworkEnvironment.swift in Sources */,
 				BC34A65C2523738D0032B60E /* SceneCoordinatorType.swift in Sources */,
 				BC34A669252376790032B60E /* MovieListConfigurator.swift in Sources */,
 				BC34A66C252376850032B60E /* MovieListPresenter.swift in Sources */,
