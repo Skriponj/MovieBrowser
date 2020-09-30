@@ -13,7 +13,7 @@ struct Movie: Decodable {
     var poster: String
     var vote: Float
     var overview: String
-    var releaseDateDescription: String
+    var releaseDate: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -21,15 +21,13 @@ struct Movie: Decodable {
         case poster = "poster_path"
         case vote = "vote_average"
         case overview
-        case releaseDateDescription = "release_date"
+        case releaseDate = "release_date"
     }
 }
 
 extension Movie {
-    var releseDate: Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        
-        return dateFormatter.date(from: releaseDateDescription)
+    var releaseDateDescription: String? {
+        let date = releaseDate.toDate()
+        return date?.toString()
     }
 }

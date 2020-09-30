@@ -8,13 +8,17 @@
 import Foundation
 
 protocol MovieListView: class {
-    
+    func showApiError(title: String?, message: String?)
+    func refreshMovieList()
 }
 
 protocol MovieListPresenter {
+    var movies: [Movie] { get }
+    
     func viewDidLoad()
     func getMovieList()
     func loadNextPage()
+    func configure(cell: MovieListCell, forItemAt indexPath: IndexPath)
 }
 
 class AppMovieListPresenter: MovieListPresenter {
@@ -23,6 +27,9 @@ class AppMovieListPresenter: MovieListPresenter {
     private var currentPage: Int = 1
     
     private var moviesResponse: MoviesResponse?
+    var movies: [Movie] {
+        return moviesResponse?.movies ?? []
+    }
     
     init(view: MovieListView, getMovieUseCase: GetMovieUseCase) {
         self.view = view
@@ -52,14 +59,22 @@ class AppMovieListPresenter: MovieListPresenter {
             }
         }
     }
+    
+    func configure(cell: MovieListCell, forItemAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        cell.titleLabel.text = movie.title
+        cell.ratingLabel.text = "\(movie.vote)"
+        cell.releaseDateLabel.text = movie.releaseDateDescription
+    }
 }
 
 private extension AppMovieListPresenter {
     func handleSuccessApiResponse(_ movieResponse: MoviesResponse) {
-        
+        self.moviesResponse = movieResponse
+        view?.refreshMovieList()
     }
     
     func handleApiError(_ error: ApiError) {
-        
+        view?.showApiError(title: "Error", message: error.message)
     }
 }
