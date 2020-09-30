@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieListViewController: UIViewController {
+class MovieListViewController: UIViewController, MovieListView {
 
     var configurator = AppMovieListConfigurator()
     var presenter: MovieListPresenter!
@@ -15,5 +15,7 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configurator.configure(movieListViewController: self)
+        presenter.viewDidLoad()
     }
 }
