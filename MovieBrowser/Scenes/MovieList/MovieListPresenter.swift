@@ -20,6 +20,7 @@ protocol MovieListPresenter {
     func loadNextPage()
     func getMoviePosterForItemAt(indexPath: IndexPath, completion: @escaping (Data?) -> Void)
     func cancelDownloadPosterImageForItemAt(indexPath: IndexPath)
+    func didSelectItemAt(indexPath: IndexPath)
 }
 
 class AppMovieListPresenter: MovieListPresenter {
@@ -34,6 +35,7 @@ class AppMovieListPresenter: MovieListPresenter {
     private var getMovieListUseCase: GetMovieUseCase?
     private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase?
     private var cancelDownloadPosterUseCase: CancelPosterDownloadUseCase?
+    private var sceneCoordinator: SceneCoordinator?
     private var currentPage: Int = 1
     
     private var moviesResponse: MoviesResponse?
@@ -41,8 +43,9 @@ class AppMovieListPresenter: MovieListPresenter {
         return moviesResponse?.movies ?? []
     }
     
-    init(view: MovieListView, useCases: [UseCase]) {
+    init(view: MovieListView, useCases: [UseCase], sceneCoordinator: SceneCoordinator?) {
         self.view = view
+        self.sceneCoordinator = sceneCoordinator
         
         useCases.forEach { (useCase) in
             switch useCase {
@@ -90,13 +93,9 @@ class AppMovieListPresenter: MovieListPresenter {
             
             switch result {
             case .success(let imageData):
-                DispatchQueue.main.async {
-                    completion(imageData)
-                }
+                completion(imageData)
             case .failure(_):
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
+                completion(nil)
             }
         }
     }
@@ -105,6 +104,11 @@ class AppMovieListPresenter: MovieListPresenter {
         let movie = movies[indexPath.item]
         let cacheKey = ImageCacheKey(value: movie.id)
         cancelDownloadPosterUseCase?.cancelDownload(for: cacheKey.key)
+    }
+    
+    func didSelectItemAt(indexPath: IndexPath) {
+        let movie = movies[indexPath.item]
+        sceneCoordinator?.transition(to: .movieDetails(movie), transitionType: .push)
     }
 }
 

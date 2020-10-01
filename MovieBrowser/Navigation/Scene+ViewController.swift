@@ -9,6 +9,20 @@ import UIKit
 
 extension Scene {
     func viewController() -> UIViewController {
-        return UIViewController()
+        switch self {
+        case .movieDetails(let movie):
+            let configurator = AppMovieDetailsConfigurator(movie: movie)
+            let controller = MovieDetailsViewController.fromStoryboard()
+            controller.configurator = configurator
+            
+            return controller
+            
+        case .movieList:
+            let configurator = AppMovieListConfigurator()
+            let controller = MovieListViewController.fromStoryboard()
+            controller.configurator = configurator
+            
+            return controller
+        }
     }
 }

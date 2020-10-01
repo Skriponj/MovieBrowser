@@ -7,13 +7,14 @@
 
 import UIKit
 
-struct Movie: Decodable {
+class Movie: Decodable {
     var id: Int
     var title: String
     var posterPath: String
     var vote: Float
     var overview: String
     var releaseDate: String
+    var details: MovieDetails?
     
     enum CodingKeys: String, CodingKey {
         case id

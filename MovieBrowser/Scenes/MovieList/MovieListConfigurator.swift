@@ -5,7 +5,7 @@
 //  Created by Anton Skrypnik on 29.09.2020.
 //
 
-import Foundation
+import UIKit
 
 protocol MovieListConfigurator {
     func configure(movieListViewController: MovieListViewController)
@@ -25,7 +25,11 @@ class AppMovieListConfigurator: MovieListConfigurator {
                                                          .downloadPosterUseCase(downloadMoviePosterUseCase),
                                                          .getMovieListUseCase(getMovieListUseCase)]
         
-        let movieListPresenter = AppMovieListPresenter(view: movieListViewController, useCases: useCases)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let movieListPresenter = AppMovieListPresenter(view: movieListViewController,
+                                                       useCases: useCases,
+                                                       sceneCoordinator: appDelegate?.sceneCoordinator)
         
         movieListViewController.presenter = movieListPresenter
     }

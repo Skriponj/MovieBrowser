@@ -7,14 +7,26 @@
 
 import UIKit
 
-class SceneCoordinator: SceneCoordinatorType {
-    
-    private (set) var window: UIWindow
+class SceneCoordinator: NSObject, SceneCoordinatorType {
+        
+    private (set) var window: UIWindow?
     private var currentViewController: UIViewController
     
-    init(window: UIWindow) {
-        self.window = window
+    override init() {
         currentViewController = UIViewController()
+    }
+    
+    func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> UIWindow? {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let controller = Scene.movieList.viewController()
+        let navController = UINavigationController(rootViewController: controller)
+        
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
+        
+        currentViewController = actualViewController(for: controller)
+        
+        return window
     }
     
     private func actualViewController(for controller: UIViewController) -> UIViewController {
@@ -40,10 +52,11 @@ class SceneCoordinator: SceneCoordinatorType {
             guard let navController = currentViewController.navigationController else {
                 fatalError("Can't make push operation without navigation controller")
             }
+            navController.delegate = self
             navController.pushViewController(controller, animated: true)
             
         case .root:
-            window.rootViewController = controller
+            window?.rootViewController = controller
         }
         
         currentViewController = actualViewController(for: controller)
@@ -63,5 +76,12 @@ class SceneCoordinator: SceneCoordinatorType {
         } else {
             fatalError("Not a modal, no navigation controller: can't navigate back from \(currentViewController)")
         }
+    }
+}
+
+extension SceneCoordinator: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        currentViewController = actualViewController(for: viewController)
     }
 }

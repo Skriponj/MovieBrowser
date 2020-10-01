@@ -10,7 +10,7 @@ import UIKit
 class MovieListViewController: UIViewController, MovieListView {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var configurator = AppMovieListConfigurator()
+    var configurator: MovieListConfigurator!
     var presenter: MovieListPresenter!
     
     override func viewDidLoad() {
@@ -61,7 +61,9 @@ extension MovieListViewController: UICollectionViewDataSource {
         
         presenter.getMoviePosterForItemAt(indexPath: indexPath) { (imageData) in
             if let data = imageData, let image = UIImage(data: data) {
-                cell.updatePosterWith(image)
+                DispatchQueue.main.async {
+                    cell.updatePosterWith(image)
+                }
             }
         }
         
@@ -79,5 +81,9 @@ extension MovieListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         presenter.cancelDownloadPosterImageForItemAt(indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItemAt(indexPath: indexPath)
     }
 }

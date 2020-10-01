@@ -12,12 +12,15 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private (set) var sceneCoordinator = SceneCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = sceneCoordinator.didFinishLaunchingWithOptions(launchOptions: launchOptions)
+        
         return true
     }
-
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
