@@ -9,7 +9,6 @@ import Foundation
 
 protocol MovieListView: class {
     func showApiError(title: String?, message: String?)
-    func updateMoviePoster(imageData: Data?, forItemAt indexPath: IndexPath)
     func refreshMovieList()
 }
 
@@ -19,13 +18,22 @@ protocol MovieListPresenter {
     func viewDidLoad()
     func getMovieList()
     func loadNextPage()
-    func getMoviePosterForItemAt(indexPath: IndexPath)
+    func getMoviePosterForItemAt(indexPath: IndexPath, completion: @escaping (Data?) -> Void)
+    func cancelDownloadPosterImageForItemAt(indexPath: IndexPath)
 }
 
 class AppMovieListPresenter: MovieListPresenter {
+    
+    enum UseCase {
+        case downloadPosterUseCase(DownloadMoviePosterUseCase)
+        case cancelPosterDownload(CancelPosterDownloadUseCase)
+        case getMovieListUseCase(GetMovieUseCase)
+    }
+    
     private weak var view: MovieListView?
-    private var getMovieListUseCase: GetMovieUseCase
-    private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase
+    private var getMovieListUseCase: GetMovieUseCase?
+    private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase?
+    private var cancelDownloadPosterUseCase: CancelPosterDownloadUseCase?
     private var currentPage: Int = 1
     
     private var moviesResponse: MoviesResponse?
@@ -33,10 +41,19 @@ class AppMovieListPresenter: MovieListPresenter {
         return moviesResponse?.movies ?? []
     }
     
-    init(view: MovieListView, getMovieUseCase: GetMovieUseCase, downloadPosterUseCase: DownloadMoviePosterUseCase) {
+    init(view: MovieListView, useCases: [UseCase]) {
         self.view = view
-        self.getMovieListUseCase = getMovieUseCase
-        self.downloadMoviePosterUseCase = downloadPosterUseCase
+        
+        useCases.forEach { (useCase) in
+            switch useCase {
+            case .cancelPosterDownload(let useCase):
+                cancelDownloadPosterUseCase = useCase
+            case .downloadPosterUseCase(let useCase):
+                downloadMoviePosterUseCase = useCase
+            case .getMovieListUseCase(let useCase):
+                getMovieListUseCase = useCase
+            }
+        }
     }
     
     func viewDidLoad() {
@@ -53,7 +70,7 @@ class AppMovieListPresenter: MovieListPresenter {
     }
     
     func getMovieList() {
-        getMovieListUseCase.getMovieList(page: currentPage) { [weak self] (result) in
+        getMovieListUseCase?.getMovieList(page: currentPage) { [weak self] (result) in
             switch result {
             case .success(let movieResponse):
                 self?.handleSuccessApiResponse(movieResponse)
@@ -63,21 +80,31 @@ class AppMovieListPresenter: MovieListPresenter {
         }
     }
     
-    func getMoviePosterForItemAt(indexPath: IndexPath) {
+    func getMoviePosterForItemAt(indexPath: IndexPath, completion: @escaping (Data?) -> Void) {
         let movie = movies[indexPath.item]
         let path = movie.posterPath
         let cacheKey = ImageCacheKey(value: movie.id)
         
-        downloadMoviePosterUseCase.downloadPoster(path: path, cacheKey: cacheKey.key) {
-            [weak self] (result) in
+        downloadMoviePosterUseCase?.downloadPoster(path: path, cacheKey: cacheKey.key) {
+             (result) in
             
             switch result {
             case .success(let imageData):
-                self?.view?.updateMoviePoster(imageData: imageData, forItemAt: indexPath)
+                DispatchQueue.main.async {
+                    completion(imageData)
+                }
             case .failure(_):
-                self?.view?.updateMoviePoster(imageData: nil, forItemAt: indexPath)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }
+    }
+    
+    func cancelDownloadPosterImageForItemAt(indexPath: IndexPath) {
+        let movie = movies[indexPath.item]
+        let cacheKey = ImageCacheKey(value: movie.id)
+        cancelDownloadPosterUseCase?.cancelDownload(for: cacheKey.key)
     }
 }
 

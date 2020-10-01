@@ -19,9 +19,13 @@ class AppMovieListConfigurator: MovieListConfigurator {
         let moviePosterGateway = AppMoviePosterGateway()
         let getMovieListUseCase = AppGetMovieUseCase(movieApiGateway: movieApiGateway)
         let downloadMoviePosterUseCase = AppDownloadMoviePosterUseCase(moviePosterGateway: moviePosterGateway)
-        let movieListPresenter = AppMovieListPresenter(view: movieListViewController,
-                                                       getMovieUseCase: getMovieListUseCase,
-                                                       downloadPosterUseCase: downloadMoviePosterUseCase)
+        let cancelPosterDownloadUseCase = AppCancelPosterDownloadUseCase(moviePosterGateway: moviePosterGateway)
+        
+        let useCases: [AppMovieListPresenter.UseCase] = [.cancelPosterDownload(cancelPosterDownloadUseCase),
+                                                         .downloadPosterUseCase(downloadMoviePosterUseCase),
+                                                         .getMovieListUseCase(getMovieListUseCase)]
+        
+        let movieListPresenter = AppMovieListPresenter(view: movieListViewController, useCases: useCases)
         
         movieListViewController.presenter = movieListPresenter
     }

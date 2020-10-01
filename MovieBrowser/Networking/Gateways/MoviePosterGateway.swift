@@ -10,6 +10,7 @@ import SDWebImage
 
 protocol MoviePosterGateway {
     func downloadImage(path: String, for cacheKey: String, completion: @escaping (Result<Data?, Error>) -> Void)
+    func cancelDownload(for key: String)
 }
 
 class AppMoviePosterGateway: MoviePosterGateway {
@@ -21,6 +22,7 @@ class AppMoviePosterGateway: MoviePosterGateway {
     private var downloadService: SDWebImageDownloader
     private var cacheService: SDImageCache
     private var networkEnvironment = NetworkEnvironment()
+    private var operations: [String: SDWebImageDownloadToken?] = [:]
     
     init() {
         downloadService = SDWebImageDownloader.shared
@@ -39,7 +41,7 @@ class AppMoviePosterGateway: MoviePosterGateway {
             return
         }
         
-        downloadService.downloadImage(with: url, options: .highPriority, progress: nil) {
+        let downloadToken = downloadService.downloadImage(with: url, options: .highPriority, progress: nil) {
             [weak self] (image, data, error, isFinished) in
             
             guard let image = image else {
@@ -49,6 +51,16 @@ class AppMoviePosterGateway: MoviePosterGateway {
             self?.storeImage(image, for: cacheKey)
             completion(.success(image.sd_imageData()))
         }
+        
+        operations[cacheKey] = downloadToken
+    }
+    
+    func cancelDownload(for key: String) {
+        guard let operation = operations[key] as? SDWebImageDownloadToken else {
+            return
+        }
+        operation.cancel()
+        operations.removeValue(forKey: key)
     }
     
     private func getCachedImageFor(key: String) -> UIImage? {

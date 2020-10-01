@@ -38,6 +38,7 @@
 		BC34A8DB252525C00032B60E /* DownloadMoviePoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */; };
 		BC34A8DE252526E40032B60E /* MoviePosterGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8DD252526E40032B60E /* MoviePosterGateway.swift */; };
 		BC34A8E4252532290032B60E /* ImageCacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8E3252532290032B60E /* ImageCacheKey.swift */; };
+		BC34AA252525B2790032B60E /* CancelPosterDownloadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34AA242525B2780032B60E /* CancelPosterDownloadUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMoviePoster.swift; sourceTree = "<group>"; };
 		BC34A8DD252526E40032B60E /* MoviePosterGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterGateway.swift; sourceTree = "<group>"; };
 		BC34A8E3252532290032B60E /* ImageCacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheKey.swift; sourceTree = "<group>"; };
+		BC34AA242525B2780032B60E /* CancelPosterDownloadUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelPosterDownloadUseCase.swift; sourceTree = "<group>"; };
 		CC0BC406D591C7BE6B989D1A /* Pods-MovieBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieBrowser.release.xcconfig"; path = "Target Support Files/Pods-MovieBrowser/Pods-MovieBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +222,7 @@
 			children = (
 				BC34A721252455D50032B60E /* GetMovieList.swift */,
 				BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */,
+				BC34AA242525B2780032B60E /* CancelPosterDownloadUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				BC34A7D325247B810032B60E /* MovieGenre.swift in Sources */,
 				BC34A71A2523821F0032B60E /* Movie.swift in Sources */,
 				BC34A65F252373B90032B60E /* SceneCoordinator.swift in Sources */,
+				BC34AA252525B2790032B60E /* CancelPosterDownloadUseCase.swift in Sources */,
 				BC34A7C925246C410032B60E /* GetMovieListRequest.swift in Sources */,
 				BC34A71E25238A660032B60E /* NetworkEnvironment.swift in Sources */,
 				BC34A65C2523738D0032B60E /* SceneCoordinatorType.swift in Sources */,
