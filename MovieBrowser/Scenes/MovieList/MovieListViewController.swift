@@ -25,6 +25,11 @@ class MovieListViewController: UIViewController, MovieListView {
         registerCells()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     func showApiError(title: String?, message: String?) {
         showAlert(title: title, message: message)
     }
@@ -76,9 +81,17 @@ extension MovieListViewController: UICollectionViewDataSource {
 
 extension MovieListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let size = (collectionView.bounds.width - 8) / 2
-        return CGSize(width: size, height: 360)
+        
+        var itemSize: CGSize
+        
+        let collectionSize = collectionView.bounds.size
+        if collectionSize.height > collectionSize.width {
+            itemSize = CGSize(width: (collectionView.bounds.width - 8) / 2, height: 360)
+        } else {
+            itemSize = CGSize(width: (collectionView.bounds.width - 8) / 4, height: collectionSize.height)
+        }
+        
+        return itemSize
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
