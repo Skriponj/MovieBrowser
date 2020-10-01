@@ -30,11 +30,16 @@ class AppMoviePosterGateway: MoviePosterGateway {
     }
     
     func downloadImage(path: String, for cacheKey: String, completion: @escaping (Result<Data?, Error>) -> Void) {
-        if let image = getCachedImageFor(key: cacheKey) {
-            completion(.success(image.sd_imageData()))
-            return
+        queryImageFromCacheForKey(cacheKey) { [weak self] (data) in
+            if let imgData = data {
+                completion(.success(imgData))
+            } else {
+                self?.loadImageFromWeb(path: path, for: cacheKey, completion: completion)
+            }
         }
-        
+    }
+    
+    private func loadImageFromWeb(path: String, for cacheKey: String, completion: @escaping (Result<Data?, Error>) -> Void) {
         let urlString = networkEnvironment.getUrlPathFor(.getMoviePoster(path))
         guard let url = URL(string: urlString) else {
             completion(.failure(ImageServiceError.notFound))
@@ -44,12 +49,13 @@ class AppMoviePosterGateway: MoviePosterGateway {
         let downloadToken = downloadService.downloadImage(with: url, options: .highPriority, progress: nil) {
             [weak self] (image, data, error, isFinished) in
             
-            guard let image = image else {
+            guard let imgData = data,
+                  let image = image else {
                 completion(.failure(error ?? ImageServiceError.notFound))
                 return
             }
             self?.storeImage(image, for: cacheKey)
-            completion(.success(image.sd_imageData()))
+            completion(.success(imgData))
         }
         
         operations[cacheKey] = downloadToken
@@ -65,6 +71,12 @@ class AppMoviePosterGateway: MoviePosterGateway {
     
     private func getCachedImageFor(key: String) -> UIImage? {
         return cacheService.imageFromCache(forKey: key)
+    }
+    
+    private func queryImageFromCacheForKey(_ key: String, completion: @escaping (Data?) -> Void) {
+        cacheService.queryImage(forKey: key, options: .fromCacheOnly, context: nil) { (image, data, cacheType) in
+            completion(data)
+        }
     }
     
     private func storeImage(_ image: UIImage, for cacheKey: String) {

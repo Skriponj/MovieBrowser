@@ -27,6 +27,7 @@ class MovieListCell: UICollectionViewCell {
         titleLabel.text = nil
         ratingLabel.text = nil
         releaseDateLabel.text = nil
+        
         posterImageView.image = UIImage(named: "placeholder")
     }
     

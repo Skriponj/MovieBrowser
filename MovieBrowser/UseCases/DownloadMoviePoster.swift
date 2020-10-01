@@ -20,6 +20,8 @@ class AppDownloadMoviePosterUseCase: DownloadMoviePosterUseCase {
     }
     
     func downloadPoster(path: String, cacheKey: String, completion: @escaping (Result<Data?, Error>) -> Void) {
-        moviePosterGateway.downloadImage(path: path, for: cacheKey, completion: completion)
+        DispatchQueue.global().async {
+            self.moviePosterGateway.downloadImage(path: path, for: cacheKey, completion: completion)
+        }
     }
 }

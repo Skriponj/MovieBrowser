@@ -48,7 +48,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     
     private func setupMovieDetails(_ details: MovieDetails) {
         let genres = details.genres.map{ $0.name }.joined(separator: ", ")
-        genresLabel.text = "Genres: \(genres)"
+        genresLabel.text = "Genres: \(genres) • \(details.runtime)m"
     }
     
     func updateMoviePoster(_ imageData: Data?) {
