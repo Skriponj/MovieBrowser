@@ -20,10 +20,29 @@ class MovieListCell: UICollectionViewCell {
         setupUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        ratingLabel.text = nil
+        releaseDateLabel.text = nil
+        posterImageView.image = UIImage(named: "placeholder")
+    }
+    
     private func setupUI() {
         ratingView.layer.cornerRadius = ratingView.bounds.height / 2
         ratingView.layer.masksToBounds = true
         posterImageView.layer.cornerRadius = 10
         posterImageView.layer.masksToBounds = true
+    }
+    
+    func setupWithModel(_ movie: Movie) {
+        titleLabel.text = movie.title
+        ratingLabel.text = "\(movie.vote)"
+        releaseDateLabel.text = movie.releaseDateDescription
+    }
+    
+    func updatePosterWith(_ image: UIImage?) {
+        posterImageView.image = image
     }
 }

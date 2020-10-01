@@ -29,6 +29,19 @@ class MovieListViewController: UIViewController, MovieListView {
     func refreshMovieList() {
         collectionView.reloadData()
     }
+    
+    func updateMoviePoster(imageData: Data?, forItemAt indexPath: IndexPath) {
+        guard let data = imageData,
+              let image = UIImage(data: data) else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            if let cell = self.collectionView.cellForItem(at: indexPath) as? MovieListCell {
+                cell.updatePosterWith(image)
+            }
+        }
+    }
 }
 
 private extension MovieListViewController {
@@ -55,8 +68,11 @@ extension MovieListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let movieCellId = String(describing: MovieListCell.self)
+        let movie = presenter.movies[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieListCell
-        presenter.configure(cell: cell, forItemAt: indexPath)
+        cell.setupWithModel(movie)
+        
+        presenter.getMoviePosterForItemAt(indexPath: indexPath)
         
         return cell
     }

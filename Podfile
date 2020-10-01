@@ -7,5 +7,6 @@ target 'MovieBrowser' do
 
   # Pods for MovieBrowser
   pod 'Alamofire', '~> 5.2'
+  pod 'SDWebImage', '~> 5.0'
 
 end

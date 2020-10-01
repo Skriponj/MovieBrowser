@@ -35,6 +35,9 @@
 		BC34A7FA25249F9F0032B60E /* MovieListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC34A7F825249F9F0032B60E /* MovieListCell.xib */; };
 		BC34A8052524A8240032B60E /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8042524A8240032B60E /* UIViewController+Alert.swift */; };
 		BC34A8092524AFFB0032B60E /* Date+StringDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8082524AFFB0032B60E /* Date+StringDescription.swift */; };
+		BC34A8DB252525C00032B60E /* DownloadMoviePoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */; };
+		BC34A8DE252526E40032B60E /* MoviePosterGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8DD252526E40032B60E /* MoviePosterGateway.swift */; };
+		BC34A8E4252532290032B60E /* ImageCacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC34A8E3252532290032B60E /* ImageCacheKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		BC34A7F825249F9F0032B60E /* MovieListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListCell.xib; sourceTree = "<group>"; };
 		BC34A8042524A8240032B60E /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		BC34A8082524AFFB0032B60E /* Date+StringDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+StringDescription.swift"; sourceTree = "<group>"; };
+		BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMoviePoster.swift; sourceTree = "<group>"; };
+		BC34A8DD252526E40032B60E /* MoviePosterGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterGateway.swift; sourceTree = "<group>"; };
+		BC34A8E3252532290032B60E /* ImageCacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheKey.swift; sourceTree = "<group>"; };
 		CC0BC406D591C7BE6B989D1A /* Pods-MovieBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieBrowser.release.xcconfig"; path = "Target Support Files/Pods-MovieBrowser/Pods-MovieBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				BC34A66F25237A0D0032B60E /* ApiGateway */,
+				BC34A8DD252526E40032B60E /* MoviePosterGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -212,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				BC34A721252455D50032B60E /* GetMovieList.swift */,
+				BC34A8DA252525C00032B60E /* DownloadMoviePoster.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 			children = (
 				BC34A8042524A8240032B60E /* UIViewController+Alert.swift */,
 				BC34A8082524AFFB0032B60E /* Date+StringDescription.swift */,
+				BC34A8E3252532290032B60E /* ImageCacheKey.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -374,11 +383,14 @@
 				BC34A62E25233AB20032B60E /* MovieListViewController.swift in Sources */,
 				BC34A63425233AB20032B60E /* MovieBrowser.xcdatamodeld in Sources */,
 				BC34A71625237E730032B60E /* MovieApiGateway.swift in Sources */,
+				BC34A8DB252525C00032B60E /* DownloadMoviePoster.swift in Sources */,
 				BC34A659252373410032B60E /* SceneTransitionType.swift in Sources */,
 				BC34A62A25233AB20032B60E /* AppDelegate.swift in Sources */,
+				BC34A8DE252526E40032B60E /* MoviePosterGateway.swift in Sources */,
 				BC34A6622523742F0032B60E /* Scene+ViewController.swift in Sources */,
 				BC34A7D025247A0F0032B60E /* MoviesResponse.swift in Sources */,
 				BC34A8052524A8240032B60E /* UIViewController+Alert.swift in Sources */,
+				BC34A8E4252532290032B60E /* ImageCacheKey.swift in Sources */,
 				BC34A722252455D50032B60E /* GetMovieList.swift in Sources */,
 				BC34A7D325247B810032B60E /* MovieGenre.swift in Sources */,
 				BC34A71A2523821F0032B60E /* Movie.swift in Sources */,

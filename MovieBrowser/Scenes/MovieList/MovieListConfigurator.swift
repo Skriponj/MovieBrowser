@@ -16,8 +16,12 @@ class AppMovieListConfigurator: MovieListConfigurator {
     func configure(movieListViewController: MovieListViewController) {
         let apiClient = AppApiClient()
         let movieApiGateway = AppMovieApiGateway(apiClient: apiClient)
+        let moviePosterGateway = AppMoviePosterGateway()
         let getMovieListUseCase = AppGetMovieUseCase(movieApiGateway: movieApiGateway)
-        let movieListPresenter = AppMovieListPresenter(view: movieListViewController, getMovieUseCase: getMovieListUseCase)
+        let downloadMoviePosterUseCase = AppDownloadMoviePosterUseCase(moviePosterGateway: moviePosterGateway)
+        let movieListPresenter = AppMovieListPresenter(view: movieListViewController,
+                                                       getMovieUseCase: getMovieListUseCase,
+                                                       downloadPosterUseCase: downloadMoviePosterUseCase)
         
         movieListViewController.presenter = movieListPresenter
     }

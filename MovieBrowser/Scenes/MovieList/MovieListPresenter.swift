@@ -9,6 +9,7 @@ import Foundation
 
 protocol MovieListView: class {
     func showApiError(title: String?, message: String?)
+    func updateMoviePoster(imageData: Data?, forItemAt indexPath: IndexPath)
     func refreshMovieList()
 }
 
@@ -18,12 +19,13 @@ protocol MovieListPresenter {
     func viewDidLoad()
     func getMovieList()
     func loadNextPage()
-    func configure(cell: MovieListCell, forItemAt indexPath: IndexPath)
+    func getMoviePosterForItemAt(indexPath: IndexPath)
 }
 
 class AppMovieListPresenter: MovieListPresenter {
     private weak var view: MovieListView?
     private var getMovieListUseCase: GetMovieUseCase
+    private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase
     private var currentPage: Int = 1
     
     private var moviesResponse: MoviesResponse?
@@ -31,9 +33,10 @@ class AppMovieListPresenter: MovieListPresenter {
         return moviesResponse?.movies ?? []
     }
     
-    init(view: MovieListView, getMovieUseCase: GetMovieUseCase) {
+    init(view: MovieListView, getMovieUseCase: GetMovieUseCase, downloadPosterUseCase: DownloadMoviePosterUseCase) {
         self.view = view
         self.getMovieListUseCase = getMovieUseCase
+        self.downloadMoviePosterUseCase = downloadPosterUseCase
     }
     
     func viewDidLoad() {
@@ -60,11 +63,21 @@ class AppMovieListPresenter: MovieListPresenter {
         }
     }
     
-    func configure(cell: MovieListCell, forItemAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
-        cell.titleLabel.text = movie.title
-        cell.ratingLabel.text = "\(movie.vote)"
-        cell.releaseDateLabel.text = movie.releaseDateDescription
+    func getMoviePosterForItemAt(indexPath: IndexPath) {
+        let movie = movies[indexPath.item]
+        let path = movie.posterPath
+        let cacheKey = ImageCacheKey(value: movie.id)
+        
+        downloadMoviePosterUseCase.downloadPoster(path: path, cacheKey: cacheKey.key) {
+            [weak self] (result) in
+            
+            switch result {
+            case .success(let imageData):
+                self?.view?.updateMoviePoster(imageData: imageData, forItemAt: indexPath)
+            case .failure(_):
+                self?.view?.updateMoviePoster(imageData: nil, forItemAt: indexPath)
+            }
+        }
     }
 }
 
