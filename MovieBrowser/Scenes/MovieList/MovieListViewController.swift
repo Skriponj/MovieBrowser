@@ -16,6 +16,9 @@ class MovieListViewController: UIViewController, MovieListView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backBarButtton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtton
+        
         configurator.configure(movieListViewController: self)
         presenter.viewDidLoad()
         setupCollectionView()

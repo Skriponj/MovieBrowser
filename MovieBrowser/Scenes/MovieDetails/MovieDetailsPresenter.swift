@@ -10,10 +10,13 @@ import Foundation
 protocol MovieDetailsView: class {
     func updateMoviePoster(_ imageData: Data?)
     func updateMovieInfo(movie: Movie)
+    func loadTrailer(trailerKey: String)
+    func showError(title: String?, message: String?)
 }
 
 protocol MovieDetailsPresenter {
     func viewDidLoad()
+    func handlePlayAction()
 }
 
 class AppMovieDetailsPresenter: MovieDetailsPresenter {
@@ -44,6 +47,14 @@ class AppMovieDetailsPresenter: MovieDetailsPresenter {
     func viewDidLoad() {
         loadMovieDetails()
         loadMoviePoster()
+    }
+    
+    func handlePlayAction() {
+        guard let trailer = movie.details?.trailerResponse.videos.first else {
+            view.showError(title: nil, message: "No available trailers provided")
+            return
+        }
+        view.loadTrailer(trailerKey: trailer.key)
     }
 }
 
