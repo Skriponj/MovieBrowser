@@ -76,7 +76,7 @@ class AppApiClient: ApiClient {
     }
     
     private func observeNetworkChanges() {
-        networkManager.onStatusChange = { [weak self] status in
+        let block: (NetworkReachabilityManager.NetworkReachabilityStatus) -> Void = { [weak self] status in
             switch status {
             case .reachable(_):
                 self?.retryFailedRequests()
@@ -84,6 +84,8 @@ class AppApiClient: ApiClient {
                 break
             }
         }
+        
+        networkManager.observeNetworkStatus(block: block)
     }
     
     private func retryFailedRequests() {

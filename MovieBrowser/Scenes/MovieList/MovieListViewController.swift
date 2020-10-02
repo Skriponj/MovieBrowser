@@ -20,6 +20,7 @@ class MovieListViewController: UIViewController, MovieListView {
         navigationItem.backBarButtonItem = backBarButtton
         
         configurator.configure(movieListViewController: self)
+        toggleActivityIndicator(enable: true)
         presenter.viewDidLoad()
         setupCollectionView()
         registerCells()
@@ -35,15 +36,23 @@ class MovieListViewController: UIViewController, MovieListView {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
+    @objc func reload() {
+        toggleActivityIndicator(enable: true)
+        presenter.getMovieList()
+    }
+    
     func showApiError(title: String?, message: String?) {
         showAlert(title: title, message: message)
     }
     
     func refreshMovieList() {
+        toggleActivityIndicator(enable: false)
+        collectionView.refreshControl?.endRefreshing()
         collectionView.reloadData()
     }
     
     func addItemsForNextPageAt(indexPaths: [IndexPath]) {
+        toggleActivityIndicator(enable: false)
         collectionView.insertItems(at: indexPaths)
     }
 }
@@ -52,12 +61,20 @@ private extension MovieListViewController {
     func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reload), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     func registerCells() {
         let movieCellId = String(describing: MovieListCell.self)
         let nib = UINib(nibName: movieCellId, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: movieCellId)
+    }
+    
+    func toggleActivityIndicator(enable: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = enable
     }
 }
 

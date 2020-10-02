@@ -16,7 +16,7 @@ class NetworkManager {
     var isReachable: Bool {
         return manager?.isReachable ?? false
     }
-    var onStatusChange: ((NetworkReachabilityManager.NetworkReachabilityStatus) -> Void)?
+    private var statusObservers: [(NetworkReachabilityManager.NetworkReachabilityStatus) -> Void] = []
     
     private init() {
         isListening = false
@@ -24,10 +24,20 @@ class NetworkManager {
         startListeningForNetworkChanges()
     }
     
+    func observeNetworkStatus(block: @escaping (NetworkReachabilityManager.NetworkReachabilityStatus) -> Void) {
+        statusObservers.append(block)
+    }
+    
     private func startListeningForNetworkChanges() {
         manager?.startListening(onUpdatePerforming: { [weak self] (status) in
             print("NETWORK STATUS -> \(status)")
-            self?.onStatusChange?(status)
+            self?.notify(status: status)
         })
+    }
+    
+    private func notify(status: NetworkReachabilityManager.NetworkReachabilityStatus) {
+        statusObservers.forEach { (observer) in
+            observer(status)
+        }
     }
 }
