@@ -18,18 +18,45 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
     
     func didFinishLaunchingWithOptions(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> UIWindow? {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let controller = Scene.movieList.viewController()
-        let navController = UINavigationController(rootViewController: controller)
         
-        window?.rootViewController = navController
+        let tabBarController = UITabBarController()
+        
+        let movieController = createInitialControllerForScene(.movieList(isFavoriteList: false))
+        let favoritesController = createInitialControllerForScene(.movieList(isFavoriteList: true))
+        
+        tabBarController.viewControllers = [movieController, favoritesController]
+        
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
-        currentViewController = actualViewController(for: controller)
+        currentViewController = actualViewController(for: tabBarController)
         
         return window
     }
     
+    private func createInitialControllerForScene(_ scene: Scene) -> UIViewController {
+        var controller: UIViewController!
+        switch scene {
+        case .movieList(let isFaforite):
+            let scene = Scene.movieList(isFavoriteList: isFaforite)
+            let movieController = scene.viewController()
+            let navController = UINavigationController(rootViewController: movieController)
+            let tabBarItemTitle = isFaforite ? "Favorites" : "Movies"
+            navController.tabBarItem = UITabBarItem(title: tabBarItemTitle, image: nil, selectedImage: nil)
+            
+            controller = navController
+        default:
+            break
+        }
+        return controller
+    }
+    
     private func actualViewController(for controller: UIViewController) -> UIViewController {
+        if let tabBarController = controller as? UITabBarController,
+           let selectedController = tabBarController.selectedViewController {
+            return actualViewController(for: selectedController)
+        }
+        
         if let navController = controller as? UINavigationController,
            let firstController = navController.viewControllers.first {
             return firstController

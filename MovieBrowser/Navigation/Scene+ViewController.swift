@@ -17,8 +17,8 @@ extension Scene {
             
             return controller
             
-        case .movieList:
-            let configurator = AppMovieListConfigurator()
+        case .movieList(let isFavoriteList):
+            let configurator = AppMovieListConfigurator(withConfigForFavoriteList: isFavoriteList)
             let controller = MovieListViewController.fromStoryboard()
             controller.configurator = configurator
             

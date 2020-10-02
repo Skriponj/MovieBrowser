@@ -13,6 +13,12 @@ protocol MovieListConfigurator {
 
 class AppMovieListConfigurator: MovieListConfigurator {
     
+    private let configForFavoriteList: Bool
+    
+    init(withConfigForFavoriteList: Bool) {
+        configForFavoriteList = withConfigForFavoriteList
+    }
+    
     func configure(movieListViewController: MovieListViewController) {
         let apiClient = AppApiClient()
         let storageGateway = AppLocalStorageGateway(database: CoreDataStorage())
@@ -32,7 +38,8 @@ class AppMovieListConfigurator: MovieListConfigurator {
         
         let movieListPresenter = AppMovieListPresenter(view: movieListViewController,
                                                        useCases: useCases,
-                                                       sceneCoordinator: appDelegate?.sceneCoordinator, isFaforiteList: true)
+                                                       sceneCoordinator: appDelegate?.sceneCoordinator,
+                                                       isFaforiteList: configForFavoriteList)
         
         movieListViewController.presenter = movieListPresenter
     }

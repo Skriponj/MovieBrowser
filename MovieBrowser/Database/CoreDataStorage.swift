@@ -44,7 +44,13 @@ class CoreDataStorage: Database {
             }
             
             let record = CoreDataMovie(entity: entity, insertInto: context)
-            completion(record.movie)
+            
+            do {
+                try context.save()
+                completion(record.movie)
+            } catch {
+                print("Failed saving the context")
+            }
         }
     }
     

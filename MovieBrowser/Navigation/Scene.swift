@@ -9,5 +9,5 @@ import Foundation
 
 enum Scene {
     case movieDetails(Movie)
-    case movieList
+    case movieList(isFavoriteList: Bool)
 }

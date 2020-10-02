@@ -134,6 +134,7 @@ private extension AppMovieListPresenter {
     
     func loadFavoriteMoviesFromDB() {
         fetchFavoriteMoviesUseCase?.fetchAllFavouriteMovies(completion: { (movies) in
+            print(movies)
             self.moviesResponse = MoviesResponse(page: 1, totalPages: 1, movies: movies)
             self.view?.refreshMovieList()
         })
