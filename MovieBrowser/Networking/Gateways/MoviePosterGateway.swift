@@ -74,7 +74,11 @@ class AppMoviePosterGateway: MoviePosterGateway {
     }
     
     private func queryImageFromCacheForKey(_ key: String, completion: @escaping (Data?) -> Void) {
-        cacheService.queryImage(forKey: key, options: .fromCacheOnly, context: nil) { (image, data, cacheType) in
+        cacheService.queryImage(forKey: key, options: [], context: nil) { (image, data, cacheType) in
+            DispatchQueue.global().async {
+                let data = image?.jpegData(compressionQuality: 1)
+                completion(data)
+            }
             completion(data)
         }
     }

@@ -40,6 +40,22 @@ class AppMovieApiGateway: MovieApiGateway {
             completion(.failure(.wrongRequest))
             return
         }
-        apiClient.execute(request: request, completion: completion)
+        apiClient.execute(request: request) { (result) in
+            switch result {
+            case .success(let data):
+                guard let objData = data else {
+                    completion(.failure(.wrongRequest))
+                    return
+                }
+                do {
+                    let model = try JSONDecoder().decode(T.self, from: objData)
+                    completion(.success(model))
+                } catch let error {
+                    completion(.failure(ApiError(message: error.localizedDescription)))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

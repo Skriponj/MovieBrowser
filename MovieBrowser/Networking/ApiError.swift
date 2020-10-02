@@ -18,7 +18,7 @@ struct ApiError: Error {
     var statusCode: Int?
     var message: String?
     
-    init(statusCode: Int?, message: String?) {
+    init(statusCode: Int? = nil, message: String?) {
         self.statusCode = statusCode
         self.message = message ?? ErrorType.unexpected.rawValue
     }

@@ -53,6 +53,7 @@
 		BCC5D6D72526203E006EC7E1 /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC5D6D62526203E006EC7E1 /* TrailerView.swift */; };
 		BCC5D6DF25262062006EC7E1 /* TrailerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCC5D6DE25262062006EC7E1 /* TrailerView.xib */; };
 		BCC5D6E2252621CE006EC7E1 /* UIView+fromNib().swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC5D6E1252621CE006EC7E1 /* UIView+fromNib().swift */; };
+		BCC5D7912526EB6B006EC7E1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC5D7902526EB6B006EC7E1 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		BCC5D6D62526203E006EC7E1 /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
 		BCC5D6DE25262062006EC7E1 /* TrailerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrailerView.xib; sourceTree = "<group>"; };
 		BCC5D6E1252621CE006EC7E1 /* UIView+fromNib().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+fromNib().swift"; sourceTree = "<group>"; };
+		BCC5D7902526EB6B006EC7E1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CC0BC406D591C7BE6B989D1A /* Pods-MovieBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieBrowser.release.xcconfig"; path = "Target Support Files/Pods-MovieBrowser/Pods-MovieBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +235,7 @@
 				BC34A67125237A270032B60E /* ApiClient.swift */,
 				BC34A71D25238A660032B60E /* NetworkEnvironment.swift */,
 				BC34A7C4252460BB0032B60E /* ApiError.swift */,
+				BCC5D7902526EB6B006EC7E1 /* NetworkManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				BC34A62E25233AB20032B60E /* MovieListViewController.swift in Sources */,
 				BC34A63425233AB20032B60E /* MovieBrowser.xcdatamodeld in Sources */,
 				BC34A71625237E730032B60E /* MovieApiGateway.swift in Sources */,
+				BCC5D7912526EB6B006EC7E1 /* NetworkManager.swift in Sources */,
 				BC34A8DB252525C00032B60E /* DownloadMoviePoster.swift in Sources */,
 				BC34A659252373410032B60E /* SceneTransitionType.swift in Sources */,
 				BC34A62A25233AB20032B60E /* AppDelegate.swift in Sources */,
