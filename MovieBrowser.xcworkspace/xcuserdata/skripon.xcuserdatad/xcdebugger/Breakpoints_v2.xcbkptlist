@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3CD90934-72E4-44F9-912D-EF3384CEA075"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieBrowser/Scenes/MovieDetails/MovieDetailsConfigurator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "configure(movieListViewController:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "C22B0EDF-20FB-4896-AD5D-3B8FD10FEB1A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -401,6 +385,70 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "downloadImage(path:for:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "92399315-A70A-4986-B870-139DB20328F7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieBrowser/Database/CoreDataStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "fetchAllMovies(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "92399315-A70A-4986-B870-139DB20328F7 - 8d48d4cfb8984f81"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBrowser.CoreDataStorage.fetchAllMovies(completion: (Swift.Array&lt;MovieBrowser.Movie&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/skripon/TestTask/MovieBrowser/MovieBrowser/Database/CoreDataStorage.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "282">
+               </Location>
+               <Location
+                  uuid = "92399315-A70A-4986-B870-139DB20328F7 - 2dce861d18fb68bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (MovieBrowser.CoreDataMovie) -&gt; MovieBrowser.Movie in MovieBrowser.CoreDataStorage.fetchAllMovies(completion: (Swift.Array&lt;MovieBrowser.Movie&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieBrowser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/skripon/TestTask/MovieBrowser/MovieBrowser/Database/CoreDataStorage.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2243DE4A-CD00-43FF-8986-C87A5E9D54F4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieBrowser/Database/CoreDataStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "fetchAllMovies(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

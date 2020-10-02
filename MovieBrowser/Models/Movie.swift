@@ -24,11 +24,27 @@ class Movie: Decodable {
         case overview
         case releaseDate = "release_date"
     }
+    
+    init(id: Int, title: String, posterPath: String, vote: Float, overview: String, releaseDate: String, details: MovieDetails?) {
+        self.id = id
+        self.title = title
+        self.posterPath = posterPath
+        self.vote = vote
+        self.overview = overview
+        self.releaseDate = releaseDate
+        self.details = details
+    }
 }
 
 extension Movie {
     var releaseDateDescription: String? {
         let date = releaseDate.toDate()
         return date?.toString()
+    }
+}
+
+extension Movie: Equatable {
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
     }
 }

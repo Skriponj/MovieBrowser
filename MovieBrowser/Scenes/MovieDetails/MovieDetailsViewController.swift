@@ -20,6 +20,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var loadingView: UIView!
     
+    var favoriteButton: UIBarButtonItem!
     var playerView: TrailerView!
     var configurator: MovieDetailsConfigurator!
     var presenter: MovieDetailsPresenter!
@@ -35,6 +36,10 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     
     @IBAction func playAction(_ sender: Any) {
         presenter.handlePlayAction()
+    }
+    
+    @IBAction func addMovieToFavoriteList(_ sender: Any) {
+        presenter.addMovieToFavoriteList()
     }
         
     func updateMovieInfo(movie: Movie) {
@@ -83,6 +88,12 @@ private extension MovieDetailsViewController {
         playerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerView)
         playerView.snp.makeConstraints{ $0.edges.equalTo(UIEdgeInsets.zero) }
+        
+        favoriteButton = UIBarButtonItem(image: UIImage(named: "star_empty"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(addMovieToFavoriteList(_:)))
+        navigationItem.rightBarButtonItem = favoriteButton
     }
     
     private func hideLoadingView() {

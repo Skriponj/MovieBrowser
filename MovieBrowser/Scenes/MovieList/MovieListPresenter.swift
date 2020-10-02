@@ -29,23 +29,27 @@ class AppMovieListPresenter: MovieListPresenter {
         case downloadPosterUseCase(DownloadMoviePosterUseCase)
         case cancelPosterDownload(CancelPosterDownloadUseCase)
         case getMovieListUseCase(GetMovieUseCase)
+        case fetchFavoriteMoviesUseCase(FetchFavoriteMoviesUseCase)
     }
     
     private weak var view: MovieListView?
     private var getMovieListUseCase: GetMovieUseCase?
     private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase?
     private var cancelDownloadPosterUseCase: CancelPosterDownloadUseCase?
+    private var fetchFavoriteMoviesUseCase: FetchFavoriteMoviesUseCase?
     private var sceneCoordinator: SceneCoordinator?
     private var currentPage: Int = 1
+    private let isFaforiteList: Bool
     
     private var moviesResponse: MoviesResponse?
     var movies: [Movie] {
         return moviesResponse?.movies ?? []
     }
     
-    init(view: MovieListView, useCases: [UseCase], sceneCoordinator: SceneCoordinator?) {
+    init(view: MovieListView, useCases: [UseCase], sceneCoordinator: SceneCoordinator?, isFaforiteList: Bool = false) {
         self.view = view
         self.sceneCoordinator = sceneCoordinator
+        self.isFaforiteList = isFaforiteList
         
         useCases.forEach { (useCase) in
             switch useCase {
@@ -55,6 +59,8 @@ class AppMovieListPresenter: MovieListPresenter {
                 downloadMoviePosterUseCase = useCase
             case .getMovieListUseCase(let useCase):
                 getMovieListUseCase = useCase
+            case .fetchFavoriteMoviesUseCase(let useCase):
+                fetchFavoriteMoviesUseCase = useCase
             }
         }
     }
@@ -73,6 +79,10 @@ class AppMovieListPresenter: MovieListPresenter {
     }
     
     func getMovieList() {
+        if isFaforiteList {
+            loadFavoriteMoviesFromDB()
+            return
+        }
         getMovieListUseCase?.getMovieList(page: currentPage) { [weak self] (result) in
             switch result {
             case .success(let movieResponse):
@@ -120,5 +130,12 @@ private extension AppMovieListPresenter {
     
     func handleApiError(_ error: ApiError) {
         view?.showApiError(title: "Error", message: error.message)
+    }
+    
+    func loadFavoriteMoviesFromDB() {
+        fetchFavoriteMoviesUseCase?.fetchAllFavouriteMovies(completion: { (movies) in
+            self.moviesResponse = MoviesResponse(page: 1, totalPages: 1, movies: movies)
+            self.view?.refreshMovieList()
+        })
     }
 }

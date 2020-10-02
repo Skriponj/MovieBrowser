@@ -17,6 +17,7 @@ protocol MovieDetailsView: class {
 protocol MovieDetailsPresenter {
     func viewDidLoad()
     func handlePlayAction()
+    func addMovieToFavoriteList()
 }
 
 class AppMovieDetailsPresenter: MovieDetailsPresenter {
@@ -24,12 +25,14 @@ class AppMovieDetailsPresenter: MovieDetailsPresenter {
     enum UseCase {
         case downloadPosterUseCase(DownloadMoviePosterUseCase)
         case getMovieDetailsUseCase(GetMovieDetailsUseCase)
+        case addFavoriteMovieUseCase(AddFavoriteMovieUseCase)
     }
     
     private let view: MovieDetailsView
     private let movie: Movie
     private var downloadMoviePosterUseCase: DownloadMoviePosterUseCase?
     private var getMovieDetailsUseCase: GetMovieDetailsUseCase?
+    private var addFavoriteMovieUseCase: AddFavoriteMovieUseCase?
     
     init(view: MovieDetailsView, movie: Movie, useCases: [UseCase]) {
         self.view = view
@@ -40,6 +43,8 @@ class AppMovieDetailsPresenter: MovieDetailsPresenter {
                 downloadMoviePosterUseCase = useCase
             case .getMovieDetailsUseCase(let useCase):
                 getMovieDetailsUseCase = useCase
+            case .addFavoriteMovieUseCase(let useCase):
+                addFavoriteMovieUseCase = useCase
             }
         }
     }
@@ -55,6 +60,12 @@ class AppMovieDetailsPresenter: MovieDetailsPresenter {
             return
         }
         view.loadTrailer(trailerKey: trailer.key)
+    }
+    
+    func addMovieToFavoriteList() {
+        addFavoriteMovieUseCase?.addFavoriteMovie(movie, completion: { (movieInDB) in
+            print(movieInDB)
+        })
     }
 }
 
