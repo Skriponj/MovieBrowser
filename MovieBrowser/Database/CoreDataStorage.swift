@@ -44,14 +44,25 @@ class CoreDataStorage: Database {
             }
             
             let record = CoreDataMovie(entity: entity, insertInto: context)
-            
-            do {
-                try context.save()
-                completion(record.movie)
-            } catch {
-                print("Failed saving the context")
+            record.setup(with: movie)
+            if let details = detailsEntityForMovie(movie) {
+                record.updateWithDetails(details)
             }
+            
+            coreDataStack.saveContext()
         }
+    }
+    
+    private func detailsEntityForMovie(_ movie: Movie) -> CoreDataMovieDetails? {
+        guard let details = movie.details else { return nil }
+        let entityName = CoreDataMovieDetails.description()
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context) else {
+            return nil
+        }
+        
+        let record = CoreDataMovieDetails(entity: entity, insertInto: context)
+        record.setupWithDetails(details)
+        return record
     }
     
     func saveCurrentState() {

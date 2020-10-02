@@ -23,10 +23,12 @@ class AppMoviePosterGateway: MoviePosterGateway {
     private var cacheService: SDImageCache
     private var networkEnvironment = NetworkEnvironment()
     private var operations: [String: SDWebImageDownloadToken?] = [:]
+    let lock: NSLock
     
     init() {
         downloadService = SDWebImageDownloader.shared
         cacheService = SDImageCache.shared
+        lock = NSLock()
     }
     
     func downloadImage(path: String, for cacheKey: String, completion: @escaping (Result<Data?, Error>) -> Void) {
@@ -58,7 +60,9 @@ class AppMoviePosterGateway: MoviePosterGateway {
             completion(.success(imgData))
         }
         
+        lock.lock()
         operations[cacheKey] = downloadToken
+        lock.unlock()
     }
     
     func cancelDownload(for key: String) {

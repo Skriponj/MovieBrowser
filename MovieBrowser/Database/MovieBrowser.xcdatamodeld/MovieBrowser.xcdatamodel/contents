@@ -7,8 +7,17 @@
         <attribute name="releaseDate" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="vote" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataMovieDetails" inverseName="movie" inverseEntity="CoreDataMovieDetails"/>
+    </entity>
+    <entity name="CoreDataMovieDetails" representedClassName="CoreDataMovieDetails" syncable="YES" codeGenerationType="category">
+        <attribute name="genres" optional="YES" attributeType="Transformable"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="runtime" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="trailers" optional="YES" attributeType="Transformable"/>
+        <relationship name="movie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreDataMovie" inverseName="details" inverseEntity="CoreDataMovie"/>
     </entity>
     <elements>
-        <element name="CoreDataMovie" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="CoreDataMovie" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="CoreDataMovieDetails" positionX="-63" positionY="27" width="128" height="118"/>
     </elements>
 </model>

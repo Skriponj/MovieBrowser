@@ -295,22 +295,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "714E7684-B9B3-4B08-856F-0BBCDB9CD7B4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieBrowser/Networking/ApiClient.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "execute(request:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B63607BD-9A09-47A2-995E-FED48E00A042"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -359,48 +343,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4863D562-143C-4E03-A5FE-4BB89C8D7D81"
+            uuid = "D29D4296-693B-4D7D-818A-32EC706F5E54"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MovieBrowser/Networking/Gateways/MoviePosterGateway.swift"
+            filePath = "MovieBrowser/Scenes/MovieDetails/MovieDetailsPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "downloadImage(path:for:completion:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0BCD123F-B18D-4056-854F-0A78BF033934"
+            uuid = "3D9AE893-018F-48FE-84E3-9DB5BAE4D317"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MovieBrowser/Networking/Gateways/MoviePosterGateway.swift"
+            filePath = "MovieBrowser/Scenes/MovieList/MovieListPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "downloadImage(path:for:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "82F217F4-0FD9-49D9-BCE9-77C35E53DD08"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieBrowser/Scenes/MovieList/MovieListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "loadFavoriteMoviesFromDB()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

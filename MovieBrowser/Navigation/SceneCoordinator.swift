@@ -20,6 +20,7 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let tabBarController = UITabBarController()
+        tabBarController.delegate = self
         
         let movieController = createInitialControllerForScene(.movieList(isFavoriteList: false))
         let favoritesController = createInitialControllerForScene(.movieList(isFavoriteList: true))
@@ -41,8 +42,12 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
             let scene = Scene.movieList(isFavoriteList: isFaforite)
             let movieController = scene.viewController()
             let navController = UINavigationController(rootViewController: movieController)
-            let tabBarItemTitle = isFaforite ? "Favorites" : "Movies"
-            navController.tabBarItem = UITabBarItem(title: tabBarItemTitle, image: nil, selectedImage: nil)
+            let image = isFaforite ? UIImage(named: "star_empty") : UIImage(named: "movie")
+            let landscapeImage = isFaforite ? UIImage(named: "star_empty_landscape") : UIImage(named: "movie_landscape")
+            let item = UITabBarItem(title: nil, image: image, selectedImage: nil)
+            item.landscapeImagePhone = landscapeImage
+            item.imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+            navController.tabBarItem = item
             
             controller = navController
         default:
@@ -109,6 +114,12 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
 extension SceneCoordinator: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
+        currentViewController = actualViewController(for: viewController)
+    }
+}
+
+extension SceneCoordinator: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         currentViewController = actualViewController(for: viewController)
     }
 }

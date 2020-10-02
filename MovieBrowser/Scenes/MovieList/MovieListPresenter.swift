@@ -10,17 +10,20 @@ import Foundation
 protocol MovieListView: class {
     func showApiError(title: String?, message: String?)
     func refreshMovieList()
+    func addItemsForNextPageAt(indexPaths: [IndexPath])
 }
 
 protocol MovieListPresenter {
     var movies: [Movie] { get }
     
     func viewDidLoad()
+    func viewWillAppear()
     func getMovieList()
     func loadNextPage()
     func getMoviePosterForItemAt(indexPath: IndexPath, completion: @escaping (Data?) -> Void)
     func cancelDownloadPosterImageForItemAt(indexPath: IndexPath)
     func didSelectItemAt(indexPath: IndexPath)
+    func loadNextPageIfNeeded(lastItemIndex: Int)
 }
 
 class AppMovieListPresenter: MovieListPresenter {
@@ -42,9 +45,8 @@ class AppMovieListPresenter: MovieListPresenter {
     private let isFaforiteList: Bool
     
     private var moviesResponse: MoviesResponse?
-    var movies: [Movie] {
-        return moviesResponse?.movies ?? []
-    }
+    private var isNextPageRequest: Bool = false
+    var movies: [Movie] = []
     
     init(view: MovieListView, useCases: [UseCase], sceneCoordinator: SceneCoordinator?, isFaforiteList: Bool = false) {
         self.view = view
@@ -67,6 +69,12 @@ class AppMovieListPresenter: MovieListPresenter {
     
     func viewDidLoad() {
         getMovieList()
+    }
+    
+    func viewWillAppear() {
+        if isFaforiteList {        
+            getMovieList()
+        }
     }
     
     func loadNextPage() {
@@ -120,11 +128,26 @@ class AppMovieListPresenter: MovieListPresenter {
         let movie = movies[indexPath.item]
         sceneCoordinator?.transition(to: .movieDetails(movie), transitionType: .push)
     }
+    
+    func loadNextPageIfNeeded(lastItemIndex: Int) {
+        if lastItemIndex == movies.count - 1 {
+            isNextPageRequest = true
+            loadNextPage()
+        }
+    }
 }
 
 private extension AppMovieListPresenter {
     func handleSuccessApiResponse(_ movieResponse: MoviesResponse) {
         self.moviesResponse = movieResponse
+        let moviesCount = movies.count
+        movies.append(contentsOf: movieResponse.movies)
+        if isNextPageRequest {
+            let newItems = (moviesCount..<movies.count).map { IndexPath(item: $0, section: 0) }
+            view?.addItemsForNextPageAt(indexPaths: newItems)
+            isNextPageRequest = false
+            return
+        }
         view?.refreshMovieList()
     }
     
@@ -136,6 +159,7 @@ private extension AppMovieListPresenter {
         fetchFavoriteMoviesUseCase?.fetchAllFavouriteMovies(completion: { (movies) in
             print(movies)
             self.moviesResponse = MoviesResponse(page: 1, totalPages: 1, movies: movies)
+            self.movies = movies
             self.view?.refreshMovieList()
         })
     }

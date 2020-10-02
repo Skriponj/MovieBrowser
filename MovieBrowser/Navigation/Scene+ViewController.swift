@@ -13,6 +13,7 @@ extension Scene {
         case .movieDetails(let movie):
             let configurator = AppMovieDetailsConfigurator(movie: movie)
             let controller = MovieDetailsViewController.fromStoryboard()
+            controller.hidesBottomBarWhenPushed = true
             controller.configurator = configurator
             
             return controller

@@ -75,6 +75,10 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
             self.playerView.loadTrailerForKey(trailerKey)
         }
     }
+    
+    func didAddMovieToFavoriteList() {
+        favoriteButton.image = UIImage(named: "star_filled")
+    }
 }
 
 private extension MovieDetailsViewController {

@@ -25,9 +25,14 @@ class MovieListViewController: UIViewController, MovieListView {
         registerCells()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     func showApiError(title: String?, message: String?) {
@@ -36,6 +41,10 @@ class MovieListViewController: UIViewController, MovieListView {
     
     func refreshMovieList() {
         collectionView.reloadData()
+    }
+    
+    func addItemsForNextPageAt(indexPaths: [IndexPath]) {
+        collectionView.insertItems(at: indexPaths)
     }
 }
 
@@ -101,5 +110,9 @@ extension MovieListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectItemAt(indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        presenter.loadNextPageIfNeeded(lastItemIndex: indexPath.item)
     }
 }

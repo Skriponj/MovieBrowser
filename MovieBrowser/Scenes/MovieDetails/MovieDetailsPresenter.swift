@@ -12,6 +12,7 @@ protocol MovieDetailsView: class {
     func updateMovieInfo(movie: Movie)
     func loadTrailer(trailerKey: String)
     func showError(title: String?, message: String?)
+    func didAddMovieToFavoriteList()
 }
 
 protocol MovieDetailsPresenter {
@@ -64,7 +65,9 @@ class AppMovieDetailsPresenter: MovieDetailsPresenter {
     
     func addMovieToFavoriteList() {
         addFavoriteMovieUseCase?.addFavoriteMovie(movie, completion: { (movieInDB) in
-            print(movieInDB)
+            if movieInDB != nil {
+                self.view.didAddMovieToFavoriteList()
+            }
         })
     }
 }

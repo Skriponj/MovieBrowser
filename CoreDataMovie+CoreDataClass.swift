@@ -18,7 +18,7 @@ public class CoreDataMovie: NSManagedObject {
                      vote: vote,
                      overview: overview ?? "",
                      releaseDate: releaseDate ?? "",
-                     details: nil)
+                     details: details?.details)
     }
     
     func setup(with movie: Movie) {
@@ -27,5 +27,9 @@ public class CoreDataMovie: NSManagedObject {
         vote = movie.vote
         overview = movie.overview
         releaseDate = movie.releaseDate
+    }
+    
+    func updateWithDetails(_ details: CoreDataMovieDetails) {
+        self.details = details
     }
 }
